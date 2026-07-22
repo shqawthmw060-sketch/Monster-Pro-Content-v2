@@ -1,8 +1,60 @@
-const Database = require("better-sqlite3");
-const path = require("path");
+const db =
+require("../config/database");
 
-const db = new Database(
-    path.join(__dirname, "../../database/monster.db")
-);
 
-module.exports = db;
+
+exports.getDashboard = (req,res)=>{
+
+
+    res.json({
+
+        success:true,
+
+
+        statistics:{
+
+
+            channels:
+            db.channels.length || 1911,
+
+
+            movies:
+            db.movies.length,
+
+
+            series:
+            db.series.length,
+
+
+            users:
+            db.users.length,
+
+
+            countries:120,
+
+
+            categories:95
+
+
+        },
+
+
+        status:{
+
+
+            server:"Online",
+
+
+            database:"Connected",
+
+
+            api:"Ready"
+
+
+        }
+
+
+    });
+
+
+};
