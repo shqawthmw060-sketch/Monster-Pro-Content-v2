@@ -1,60 +1,31 @@
-const db =
-require("../config/database");
+const path = require("path");
 
 
-
-exports.getDashboard = (req,res)=>{
-
-
-    res.json({
-
-        success:true,
+// مؤقتًا سنستخدم JSON Database
+// وبعدها نربطه MySQL أو PostgreSQL
 
 
-        statistics:{
+const database = {
+
+    channels:[],
+
+    movies:[],
+
+    series:[],
+
+    users:[],
 
 
-            channels:
-            db.channels.length || 1911,
+    settings:{
 
+        name:"Monster Pro IPTV",
 
-            movies:
-            db.movies.length,
+        version:"v2"
 
-
-            series:
-            db.series.length,
-
-
-            users:
-            db.users.length,
-
-
-            countries:120,
-
-
-            categories:95
-
-
-        },
-
-
-        status:{
-
-
-            server:"Online",
-
-
-            database:"Connected",
-
-
-            api:"Ready"
-
-
-        }
-
-
-    });
-
+    }
 
 };
+
+
+
+module.exports = database;
