@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Import M3U</title>
+
+<style>
+
+body{
+
+background:#0f172a;
+
+font-family:Arial;
+
+color:white;
+
+padding:50px;
+
+}
+
+input{
+
+margin:20px 0;
+
+}
+
+button{
+
+padding:12px 25px;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+#result{
+
+margin-top:20px;
+
+font-size:22px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>📂 Import M3U</h1>
+
+<input type="file" id="playlist">
+
+<br>
+
+<button onclick="upload()">
+
+Import
+
+</button>
+
+<div id="result"></div>
+
+<script>
+
+async function upload(){
+
+const file=document.getElementById("playlist").files[0];
+
+if(!file){
+
+alert("Choose M3U File");
+
+return;
+
+}
+
+const fd=new FormData();
+
+fd.append("playlist",file);
+
+const res=await fetch("/api/import/file",{
+
+method:"POST",
+
+body:fd
+
+});
+
+const data=await res.json();
+
+document.getElementById("result").innerHTML=
+
+"Imported : "+data.imported+" Channels";
+
+}
+
+</script>
+
+</body>
+
+</html>

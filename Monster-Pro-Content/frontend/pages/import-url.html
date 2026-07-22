@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Import M3U URL</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Arial;
+    padding:40px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    font-size:18px;
+    border-radius:8px;
+    border:none;
+}
+
+button{
+    margin-top:20px;
+    padding:15px 35px;
+    font-size:18px;
+    cursor:pointer;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:8px;
+}
+
+#result{
+    margin-top:25px;
+    font-size:22px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🌐 Import M3U From URL</h1>
+
+<input
+id="url"
+value="https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"
+>
+
+<br>
+
+<button onclick="startImport()">
+
+Import
+
+</button>
+
+<div id="result"></div>
+
+<script>
+
+async function startImport(){
+
+const url=document.getElementById("url").value;
+
+document.getElementById("result").innerHTML="Downloading...";
+
+const res=await fetch("/api/import/url",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({url})
+
+});
+
+const data=await res.json();
+
+document.getElementById("result").innerHTML=`
+
+✅ Imported : ${data.imported}<br>
+
+⚠ Duplicate : ${data.duplicates}
+
+`;
+
+}
+
+</script>
+
+</body>
+
+</html>
